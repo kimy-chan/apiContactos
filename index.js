@@ -1,3 +1,4 @@
 import App from "./src/app.js";
-const app = new App(3000)
+const app = new App(process.env.PORT)
 app.start()
+

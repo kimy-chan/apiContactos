@@ -2,7 +2,13 @@ import express from "express"
 import {Server} from "socket.io"
 import http from "http"
 import { fileURLToPath } from 'url';
+import {dirname} from 'path';
 import path from 'path';
+import morgan  from "morgan";
+import dotenv from 'dotenv';
+import routasContact from "./router/vistas.router.js"
+import cookieParser from "cookie-parser"
+dotenv.config()
 
 export default class App{
     constructor(port){
@@ -11,32 +17,42 @@ export default class App{
         this.server = http.createServer(this.app)
         this.io = new Server(this.server)
         this.__filename = fileURLToPath(import.meta.url);
-        this.__dirname = path.dirname(__filename);
+        this.__dirname = dirname(this.__filename);
         this.port=port
-
-        this.router() 
         this.settings()
+        this.midelware()
+        this.routes()
+        
 
     }
 
     settings(){
         this.app.set("view engine", "ejs")
-        this.app.set(this.__dirname, "/views")
+        this.app.set("views", this.__dirname + "/views")
         
 
     }
+    midelware(){
+        this.app.use(morgan("dev"))
+        this.app.use(express.static(path.join(this.__dirname, 'public')))
+        this.app.use(express.urlencoded({extended:false}))
+        this.app.use(cookieParser())
+    }
+    
+    
+    routes(){
+        this.app.use(routasContact)
 
-    router(){
-        this.app.get("/",(req,res)=>{
-            return res.render("inde")
-        })
+    }
+ 
 
         
-    }
+    
 
 
-    start(){
-        this.server.listen(this.port,()=>{
+     start(){
+        this.server.listen(this.port,async()=>{
+            
             console.log("server on port");
         })
     }
