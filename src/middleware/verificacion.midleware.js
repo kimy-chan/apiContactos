@@ -8,7 +8,7 @@ export default function veryTokeyCookie(req,res,next){
        req.id = data
         next()
     }else{
-        return res.redirect("login")
+        return res.redirect("/login")
         
     }
     

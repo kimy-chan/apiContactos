@@ -3,7 +3,7 @@ dotenv.config()
 import mysql from "mysql2/promise"
 
 
- const conecction =  mysql.createPool({
+ const conn =  mysql.createPool({
     host:process.env.HOST_DATABASE,
     user:process.env.USER_DATABASE,
     password:process.env.PASSWORD_DATABASE,
@@ -13,8 +13,10 @@ import mysql from "mysql2/promise"
     
  
 })
-
-
+async function conecction (){
+   const connec = await conn.getConnection() 
+   return connec
+}
 console.log("conectada a la base de datos");
 export default conecction;
 
