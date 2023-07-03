@@ -28,12 +28,14 @@ export default class Register{
            if(error.code ==='ER_DUP_ENTRY'){
             await conn.rollback()
             console.log("el usuario ya existe");
-            return res.redirect("register")
+            return res.redirect("/register")
 
            }
             await conn.rollback()
         
             
+        }finally{
+            conn.release()
         }
 
     }

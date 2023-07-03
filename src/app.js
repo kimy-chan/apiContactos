@@ -15,7 +15,7 @@ export default class App{
 
         this.app= express()
         this.server = http.createServer(this.app)
-        this.io = new Server(this.server)
+       this.io = new Server(this.server)
         this.__filename = fileURLToPath(import.meta.url);
         this.__dirname = dirname(this.__filename);
         this.port=port
@@ -30,7 +30,6 @@ export default class App{
         this.app.set("view engine", "ejs")
         this.app.set("views", this.__dirname + "/views")
         
-
     }
     midelware(){
         this.app.use(morgan("dev"))
@@ -51,7 +50,7 @@ export default class App{
 
 
      start(){
-        this.server.listen(this.port,async()=>{
+        this.server.listen(this.port,()=>{
             
             console.log("server on port");
         })

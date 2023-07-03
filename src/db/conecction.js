@@ -14,8 +14,13 @@ import mysql from "mysql2/promise"
  
 })
 async function conecction (){
+ try {
    const connec = await conn.getConnection() 
    return connec
+ } catch (error) {
+   console.log(error);
+   
+ }
 }
 console.log("conectada a la base de datos");
 export default conecction;

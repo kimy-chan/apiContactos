@@ -21,6 +21,8 @@ router.post("/register",registro.registro)
 router.get("/registerContac",[verificacion],contactos.mostrarFormContact)
 router.post("/registerContac",[verificacion],contactos.registrarContacto)
 router.get("/cerrarSesion",[verificacion],login.cerrarSession )
+router.get("/actulizar/:idA",contactos.formularioActulizar)
+router.post("/actualizar",contactos.actulizarContacto)
 export default router;
 
 
